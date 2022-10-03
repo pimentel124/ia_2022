@@ -27,7 +27,7 @@ class Localitzacio(enum.Enum):
 
     @staticmethod
     def aleatori() -> enum.Enum:
-        if random.randint(0, 1) is 0:
+        if random.randint(0, 1) == 0:
             return Localitzacio.HABITACIO_DRET
         else:
             return Localitzacio.HABITACIO_ESQ
@@ -39,7 +39,7 @@ class EstatHabitacio(enum.Enum):
 
     @staticmethod
     def aleatori() -> enum.Enum:
-        if random.randint(0, 1) is 0:
+        if random.randint(0, 1) == 0:
             return EstatHabitacio.NET
         else:
             return EstatHabitacio.BRUT

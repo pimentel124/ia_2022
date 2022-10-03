@@ -1,5 +1,15 @@
 """ Fitxer que conté els diferents agents aspiradors.
 
+Percepcions:
+    ClauPercepcio.LOC: [Localitzacio.HABITACIO_ESQ, Localitzacio.HABITACIO_DRET]
+    ClauPercepcio.ESTAT: [EstatHabitacio.NET, EstatHabitacio.BRUT]
+
+Accions:
+    AccionsAspirador.DRETA
+    AccionsAspirador.ESQUERRA
+    AccionsAspirador.ATURA
+    AccionsAspirador.ASPIRA
+
 Autor: Miquel Miró Nicolau (UIB), 2022
 """
 import abc
@@ -10,7 +20,6 @@ from aspirador.entorn import (AccionsAspirador, ClauPercepcio, EstatHabitacio,
                               Localitzacio)
 from ia_2022 import agent
 from ia_2022 import entorn
-from ia_2022 import entorn as super_entorn
 
 
 class Aspirador(agent.Agent):
@@ -28,7 +37,7 @@ class Aspirador(agent.Agent):
 
 
 class AspiradorReflex(Aspirador):
-    def actua(self, percep: super_entorn.Percepcio) -> super_entorn.Accio:
+    def actua(self, percep: entorn.Percepcio) -> entorn.Accio:
         """ IMPLEMENTAR """
         pass
 
@@ -41,7 +50,7 @@ class AspiradorTaula(Aspirador):
         (Localitzacio.HABITACIO_DRET, EstatHabitacio.BRUT): AccionsAspirador.ASPIRA,
     }
 
-    def actua(self, percep: super_entorn.Percepcio) -> super_entorn.Accio:
+    def actua(self, percep: entorn.Percepcio) -> entorn.Accio:
         return AspiradorTaula.TAULA[
             (percep[ClauPercepcio.LOC], percep[ClauPercepcio.ESTAT])
         ]
