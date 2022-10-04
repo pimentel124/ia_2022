@@ -31,7 +31,7 @@ class Agent:
 
         mem = None
 
-        if len(self.__memoria) > temps:
+        if len(self.__memoria) > (temps - 1):
             mem = self.__memoria[len(self.__memoria) - temps]
 
         return mem
