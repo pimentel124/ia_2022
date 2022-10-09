@@ -7,7 +7,7 @@ class Trampes(Exception):
     """Excepció aixecada quan l'usuari fa trampes."""
 
     def __init__(self) -> None:
-        self.message = "Has fet trampes, no pots fer aquesta acció"
+        self.message = "Has fet trampes, no pots fer-ho"
         super().__init__(self.message)
 
 
@@ -43,7 +43,9 @@ class Agent:
         self.__memoria.append(info)
 
     @abc.abstractmethod
-    def actua(self, percep: entorn.Percepcio) -> entorn.Accio:
+    def actua(
+        self, percep: entorn.Percepcio
+    ) -> entorn.Accio | tuple[entorn.Accio, object]:
         raise NotImplementedError
 
     @abc.abstractmethod

@@ -9,7 +9,7 @@ import random
 from ia_2022 import entorn
 
 
-class AccionsAspirador(entorn.Accio):
+class AccionsAspirador(entorn.Accio, enum.Enum):
     ESQUERRA = 0
     DRETA = 1
     ASPIRA = 2
@@ -43,7 +43,3 @@ class EstatHabitacio(enum.Enum):
             return EstatHabitacio.NET
         else:
             return EstatHabitacio.BRUT
-
-
-class PercepcionsAspirador(entorn.Percepcio):
-    pass

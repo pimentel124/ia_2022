@@ -11,3 +11,6 @@ class Percepcio:
 
     def __getitem__(self, key):
         return self.__percepcions[key]
+
+    def to_dict(self):
+        return self.__percepcions
