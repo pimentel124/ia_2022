@@ -6,7 +6,7 @@ class Accio(enum.Enum):
 
 
 class Percepcio:
-    def __init__(self, percepcions: dict[enum.Enum, enum.Enum]):
+    def __init__(self, percepcions: dict[enum.Enum, object]):
         self.__percepcions = percepcions
 
     def __getitem__(self, key):

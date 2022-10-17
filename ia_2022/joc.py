@@ -10,6 +10,8 @@ Escrit per: Miquel Miró Nicolau (UIB), 2022
 
 import abc
 import sys
+import time
+from abc import ABC
 
 import pygame
 
@@ -48,7 +50,7 @@ class Joc:
                     pygame.quit()
                     sys.exit()
             self._draw()
-            self.__logica(self._agents)
+            self._logica(self._agents)
             pygame.display.flip()
 
     @abc.abstractmethod
@@ -64,9 +66,17 @@ class Joc:
     def _aplica(self, accio: entorn.Accio, params=None):
         raise NotImplementedError
 
-    def __logica(self, agents: list[agent.Agent]):
+    def _logica(self, agents: list[agent.Agent]):
         for a in agents:
             accio = a.actua(percep=self.percepcio())
             if not isinstance(accio, tuple):
                 accio = [accio]
             self._aplica(*accio)
+
+
+class JocNoGrafic(Joc, ABC):
+    def comencar(self) -> None:
+        while True:
+            self._draw()
+            self._logica(self._agents)
+            time.sleep(0.25)
