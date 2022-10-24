@@ -2,8 +2,12 @@ import random
 
 import pygame
 
-from aspirador.entorn import (AccionsAspirador, ClauPercepcio, EstatHabitacio,
-                              Localitzacio)
+from aspirador.entorn import (
+    AccionsAspirador,
+    ClauPercepcio,
+    EstatHabitacio,
+    Localitzacio,
+)
 from ia_2022 import agent, entorn, joc
 
 
@@ -33,7 +37,7 @@ class Casa(joc.Joc):
 
         self.__localitzacio = Localitzacio.aleatori()
 
-    def _aplica(self, accio: entorn.Accio, params=None) -> None:
+    def _aplica(self, accio: entorn.Accio, params=None, agent_actual=None) -> None:
         if accio is AccionsAspirador.ASPIRA:
             self.__habitacions[self.__localitzacio] = EstatHabitacio.NET
         elif accio is AccionsAspirador.DRETA:

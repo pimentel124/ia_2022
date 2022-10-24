@@ -6,8 +6,12 @@ import abc
 
 import pygame
 
-from aspirador.entorn import (AccionsAspirador, ClauPercepcio, EstatHabitacio,
-                              Localitzacio)
+from aspirador.entorn import (
+    AccionsAspirador,
+    ClauPercepcio,
+    EstatHabitacio,
+    Localitzacio,
+)
 from ia_2022 import agent
 from ia_2022 import entorn
 from ia_2022 import entorn as super_entorn

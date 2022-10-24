@@ -63,7 +63,7 @@ class Joc:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def _aplica(self, accio: entorn.Accio, params=None):
+    def _aplica(self, accio: entorn.Accio, params=None, agent_actual=None):
         raise NotImplementedError
 
     def _logica(self, agents: list[agent.Agent]):
@@ -71,7 +71,7 @@ class Joc:
             accio = a.actua(percep=self.percepcio())
             if not isinstance(accio, tuple):
                 accio = [accio]
-            self._aplica(*accio)
+            self._aplica(*accio, agent_actual=a)
 
 
 class JocNoGrafic(Joc, ABC):

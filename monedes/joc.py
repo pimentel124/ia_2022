@@ -20,7 +20,7 @@ class Moneda(joc.JocNoGrafic):
     def __empty_pos(self) -> int:
         return self.__monedes.find(" ")
 
-    def _aplica(self, accio: entorn.Accio, params=None) -> None:
+    def _aplica(self, accio: entorn.Accio, params=None, agent_actual=None) -> None:
         id_moneda = params
         monedes_aux = list(self.__monedes)
         if accio is AccionsMoneda.DESPLACAR:

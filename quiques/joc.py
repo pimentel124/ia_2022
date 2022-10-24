@@ -15,7 +15,7 @@ class Illes(joc.Joc):
 
         self.__localitzacio = Lloc.ESQ
 
-    def _aplica(self, accio: entorn.Accio, params=None) -> None:
+    def _aplica(self, accio: entorn.Accio, params=None, agent_actual=None) -> None:
         if accio not in (AccionsBarca.ATURAR, AccionsBarca.MOURE):
             raise ValueError(f"Acció no existent en aquest joc: {accio}")
 
