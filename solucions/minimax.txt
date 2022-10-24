@@ -1,0 +1,14 @@
+def minimax(estat, torn_de_max):
+    score = estat.evaluar()
+    si score:
+        retorna score
+
+    puntuació_fills = [minimax(estat_fill, !torn_de_max) for estat_fill in estat.genera_fills()]
+    si torn_de_max:
+        retorna max(puntuació_fills)
+    sinó:
+        retorna min(puntuació_fills)
+
+def evaluar(estat):
+    si estat es meta:
+        retorna puntuació
