@@ -131,7 +131,7 @@ class Laberint(joc.Joc):
     PARET = [(2, 4), (3, 4), (4, 4), (4, 3), (4, 2), (6, 6), (7, 6)]
 
     def __init__(self, agents: list[Rana], parets=False):
-        super(Laberint, self).__init__((800, 800), agents, title="Casa")
+        super(Laberint, self).__init__((800, 800), agents, title="Pràctica 1")
 
         self.__caselles = []
 
@@ -187,7 +187,7 @@ class Laberint(joc.Joc):
             raise ValueError("Paràmetres incorrectes")
 
         nc_x, nc_y, oc_x, oc_y = None, None, None, None
-        if accio is AccionsRana.BOTAR:
+        if accio is AccionsRana.BOTAR or agent_actual.esta_botant():
             if agent_actual.esta_botant():
                 direccio = agent_actual.fer_bot()
                 if not agent_actual.esta_botant():  # bot acabat
