@@ -203,15 +203,13 @@ class Laberint(joc.Joc):
             if (not (8 > nc_y >= 0)) or (not (8 > nc_x >= 0)):
                 raise agent_lib.Trampes()
 
-            if not self.__caselles[nc_x][nc_y].is_accessible():
-                raise agent_lib.Trampes()
+            if self.__caselles[nc_x][nc_y].is_accessible():
+                self.__caselles[oc_x][oc_y].pop_agent()
+                ha_menjat = self.__caselles[nc_x][nc_y].put_agent(agent_actual)
+                agent_actual.posicio = (nc_x, nc_y)
 
-            self.__caselles[oc_x][oc_y].pop_agent()
-            ha_menjat = self.__caselles[nc_x][nc_y].put_agent(agent_actual)
-            agent_actual.posicio = (nc_x, nc_y)
-
-            if ha_menjat:
-                print(f"Agent {agent_actual.nom} ha guanyat")
+                if ha_menjat:
+                    print(f"Agent {agent_actual.nom} ha guanyat")
 
     def _draw(self) -> None:
         super(Laberint, self)._draw()
