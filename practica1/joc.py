@@ -54,7 +54,7 @@ class Rana(agent_lib.Agent):
 
     def start_bot(self, dir_bot):
         self.__dir_bot = dir_bot
-        self.__botant = 3
+        self.__botant = 2
 
     def fer_bot(self):
         self.__botant -= 1
