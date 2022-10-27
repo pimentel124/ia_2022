@@ -187,7 +187,7 @@ class Laberint(joc.Joc):
             raise ValueError(f"Acció no existent en aquest joc: {accio}")
 
         if accio is not AccionsRana.ESPERAR and (
-                params is None or len(params) != 1 or params[0] not in Direccio
+                params is None or params not in Direccio
         ):
             raise ValueError("Paràmetres incorrectes")
 
