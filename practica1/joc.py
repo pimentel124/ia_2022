@@ -199,10 +199,10 @@ class Laberint(joc.Joc):
                     oc_x, oc_y = agent_actual.posicio
                     nc_x, nc_y = Laberint._calcula_casella((oc_x, oc_y), direccio, 2)
             else:
-                agent_actual.start_bot(params[0])
+                agent_actual.start_bot(params)
         elif accio is AccionsRana.MOURE:
             oc_x, oc_y = agent_actual.posicio
-            nc_x, nc_y = Laberint._calcula_casella((oc_x, oc_y), params[0], 1)
+            nc_x, nc_y = Laberint._calcula_casella((oc_x, oc_y), params, 1)
 
         if nc_x is not None:
             if (not (8 > nc_y >= 0)) or (not (8 > nc_x >= 0)):
