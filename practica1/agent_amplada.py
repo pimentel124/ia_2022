@@ -1,20 +1,19 @@
 from ia_2022 import entorn
 from practica1 import joc
-from practica1.agent import Rana, Estat
 from practica1.entorn import ClauPercepcio, AccionsRana, Direccio
 
 COST_MOURE = 1
 COST_ESPERAR = 0.5
 COST_BOTAR = 6
 
-class RanaAmplada(Rana):
+class RanaA(joc.Rana):
     def __init__(self):
-        super(RanaAmplada, self).__init__()
+        super(Rana, self).__init__(*args, **kwargs)
         self.__oberts = None
         self.__tancats = None
         self.__accions = None
     
-    def _cerca(self, estat: Estat):
+    def _cerca(self, estat: Estat, string: str):
         self.__oberts = []
         self.__tancats = set()
         
@@ -53,7 +52,9 @@ class RanaAmplada(Rana):
     def actua(
         self, percep: entorn.Percepcio
     ) -> entorn.Accio | tuple[entorn.Accio, object]:
-        estat = Estat(percep.to_dict())
+        percepcions = percep.to_dict()
+        key_list = list(percepcions.keys())
+        estat = Estat(percep[key_list[0]], percep[key_list[1]], percep[key_list[2]])
         
         
         #no lo tengo claro del todo

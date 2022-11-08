@@ -237,6 +237,8 @@ class Laberint(joc.Joc):
             ClauPercepcio.MIDA_TAULELL: self.__mida_taulell
         }
 
+
+        #TODO: puede que haya que cambiar el numero de los arrays
         if self.__fer_parets:
             percep_dict[ClauPercepcio.PARETS] = self.PARETS
 

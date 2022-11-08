@@ -1,3 +1,4 @@
 {
-    "workbench.colorTheme": "Darcula Theme 2.0"
+    "workbench.colorTheme": "Darcula Theme 2.0",
+    "python.analysis.typeCheckingMode": "off"
 }
