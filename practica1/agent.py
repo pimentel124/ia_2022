@@ -5,6 +5,9 @@ ClauPercepcio:
     OLOR = 1
     PARETS = 2
     MIDA_TAULELL = 3
+    
+    
+
 """
 
 import abc
@@ -14,6 +17,9 @@ from ia_2022 import entorn
 from practica1 import joc
 from practica1.entorn import ClauPercepcio, AccionsRana, Direccio
 
+COST_MOURE = 1
+COST_ESPERAR = 0.5
+COST_BOTAR = 6
 
 
 class Rana(joc.Rana):
