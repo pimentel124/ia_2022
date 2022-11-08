@@ -14,14 +14,17 @@ class TipusCas(enum.Enum):
 
 
 class Rana(agent_lib.Agent):
+    random__used = set()
+
     def __init__(self, nom: str, path_img: str = "../assets/rana/rana.png"):
         super().__init__(long_memoria=1)
 
         posicio = random.randint(0, 7), random.randint(0, 7)
 
-        while posicio in Laberint.PARET:
+        while posicio in Laberint.PARETS or posicio in Rana.random__used:
             posicio = random.randint(0, 7), random.randint(0, 7)
 
+        Rana.random__used.add(posicio)
         self.__posicio = posicio
         self.__botant = 0
         self.__dir_bot = None
@@ -133,18 +136,20 @@ class Laberint(joc.Joc):
         Direccio.DALT: (0, -1),
         Direccio.ESQUERRE: (-1, 0),
     }
-    PARET = [(2, 4), (3, 4), (4, 4), (4, 3), (4, 2), (6, 6), (7, 6)]
+    PARETS = [(2, 4), (3, 4), (4, 4), (4, 3), (4, 2), (6, 6), (7, 6)]
 
-    def __init__(self, agents: list[Rana], parets=False):
+    def __init__(self, agents: list[Rana], parets=False, mida_taulell: tuple[int, int] = (8, 8)):
         super(Laberint, self).__init__((800, 800), agents, title="Pràctica 1")
 
         self.__caselles = []
+        self.__mida_taulell = mida_taulell
+        self.__fer_parets = parets
 
-        for x in range(8):
+        for x in range(mida_taulell[0]):
             aux = []
-            for y in range(8):
+            for y in range(mida_taulell[1]):
                 tipus = TipusCas.LLIURE
-                if (x, y) in Laberint.PARET and parets:
+                if (x, y) in Laberint.PARETS and parets:
                     tipus = TipusCas.PARET
                 aux.append(Casella(tipus))
             self.__caselles.append(aux)
@@ -226,10 +231,15 @@ class Laberint(joc.Joc):
                 self.__caselles[x][y].draw(window, x, y)
 
     def percepcio(self) -> entorn.Percepcio:
+        percep_dict = {
+            ClauPercepcio.OLOR: self.__pos_menjar,
+            ClauPercepcio.POSICIO: self.posicio_agents,
+            ClauPercepcio.MIDA_TAULELL: self.__mida_taulell
+        }
+
+        if self.__fer_parets:
+            percep_dict[ClauPercepcio.PARETS] = self.PARETS
+
         return entorn.Percepcio(
-            {
-                ClauPercepcio.OLOR: self.__pos_menjar,
-                ClauPercepcio.POSICIO: self.posicio_agents,
-                ClauPercepcio.PARETS: self.PARET,
-            }
+            percep_dict
         )
