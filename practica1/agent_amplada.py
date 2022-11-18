@@ -6,7 +6,7 @@ from practica1.entorn import ClauPercepcio, AccionsRana, Direccio
 COST_MOURE = 1
 COST_ESPERAR = 0.5
 COST_BOTAR = 6
-G_SIZE = None
+G_SIZE = (8, 8)
 
 
 class Estat:
@@ -61,15 +61,23 @@ class Estat:
         return total + self.__pes
 
     def es_legal(self, string: str):
+        """
+        Comprueba si la posición del agente es válida: Que no esté fuera de los límites del tablero y que no esté dentro de paredes.
+        :param string: cadena = "Nombre del agente"
+        :type string: str
+        :return: El valor devuelto es una lista de tuplas.
+        """
         print("es_legal --> self._parets = " + str(self.__parets))
         for i in self.__parets:
-            if (self.__pos_agent[string][0] == i[0]) and (self.__pos_agent[string][1] == i[1]):
+            if (self.__pos_agent[string][0] == i[0]) and (
+                self.__pos_agent[string][1] == i[1]
+            ):
                 return False
 
         return (
-            (self.__pos_agent[string][0] <= 7)
+            (self.__pos_agent[string][0] <= (self.__size[0]-1))
             and (self.__pos_agent[string][0] >= 0)
-            and (self.__pos_agent[string][1] <= 7)
+            and (self.__pos_agent[string][1] <= (self.__size[1]-1))
             and (self.__pos_agent[string][1] >= 0)
         )
 
@@ -80,6 +88,12 @@ class Estat:
         )
 
     def genera_fills(self, string: str):
+        """
+        Genera todos los movimientos posibles para una rana dada.
+        :param string: str = "nombre de la rana"
+        :type string: str
+        :return: una lista de posibles movimientos.
+        """
         fills = []
         # generate dicctionary
         diccionari_moviments = {
@@ -142,6 +156,16 @@ class Rana(joc.Rana):
         self.__accions = None
 
     def _cerca(self, estat: Estat, string: str):
+        """
+        Toma un estado inicial, una cadena, y devuelve una lista de acciones que lo llevarán desde el
+        estado inicial a un estado objetivo
+
+        :param estat: Estado, string: str
+        :type estat: Estat
+        :param string: la cadena a buscar
+        :type string: str
+        :return: un valor booleano.
+        """
         self.__oberts = []
         self.__tancats = set()
 
@@ -179,20 +203,30 @@ class Rana(joc.Rana):
     def actua(
         self, percep: entorn.Percepcio
     ) -> entorn.Accio | tuple[entorn.Accio, object]:
+        """
+        El entorno llama a la función actua() para obtener la siguiente acción del agente
+        
+        :param percep: entorno.Percepcion
+        :type percep: entorn.Percepcio
+        :return: La acción que realizará el agente.
+        """
+
         percepcions = percep.to_dict()
         key_list = list(percepcions.keys())
 
         print("key_list = " + str(key_list))
 
-        estat = Estat(percep[key_list[ClauPercepcio.POSICIO.value]],
-                     percep[key_list[ClauPercepcio.OLOR.value]],                    
-                     G_SIZE,
-                     percep[key_list[ClauPercepcio.PARETS.value]])
+        estat = Estat(
+            percep[key_list[ClauPercepcio.POSICIO.value]],
+            percep[key_list[ClauPercepcio.OLOR.value]],
+            G_SIZE,
+            percep[key_list[ClauPercepcio.PARETS.value]],
+        )
 
         # no lo tengo claro del todo
         if self.__accions is None:
-            self._cerca(estat, string="Alvaro")
-        if self.__accions:
+            self._cerca(estat=estat, string="Alvaro")
+        if len(self.__accions) > 0:
             accio = self.__accions[0]
             self.__accions = self.__accions[1:]
             return accio
