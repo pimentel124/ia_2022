@@ -1,16 +1,21 @@
+# lint_ignore=E501
+
 import sys
 from pathlib import Path
+
 
 DIR = Path(__file__).resolve().parent.parent
 
 sys.path.append(str(DIR))
 
-from practica1 import agent, joc
+
+from practica1 import agent_amplada, joc
 
 
 def main():
-    rana = agent.Rana("Miquel")
-    lab = joc.Laberint([rana], parets=True)
+    rana1 = agent_amplada.Rana("Alvaro")
+    rana2 = agent_amplada.Rana("Andreu")
+    lab = joc.Laberint([rana1, rana2], parets=True)
     lab.comencar()
 
 

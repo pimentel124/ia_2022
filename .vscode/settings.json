@@ -1,4 +1,14 @@
 {
     "workbench.colorTheme": "Darcula Theme 2.0",
-    "python.analysis.typeCheckingMode": "off"
+    "python.analysis.typeCheckingMode": "off",
+    "python.formatting.provider": "black",
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--errors-only"
+    ],
+    "docwriter.style": "Auto-detect",
+    "docwriter.language": "Spanish",
+    "docwriter.progress.trackMethods": false,
+    "docwriter.progress.trackFunctions": true
+    
 }

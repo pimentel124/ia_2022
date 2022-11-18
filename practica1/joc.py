@@ -16,7 +16,7 @@ class TipusCas(enum.Enum):
 class Rana(agent_lib.Agent):
     random__used = set()
 
-    def __init__(self, nom: str, path_img: str = "../assets/rana/rana.png"):
+    def __init__(self, nom: str, path_img: str = "assets/rana/rana.png"):
         super().__init__(long_memoria=1)
 
         posicio = random.randint(0, 7), random.randint(0, 7)
@@ -124,7 +124,7 @@ class Casella:
             window.blit(img, (x * 100, y * 100))
 
         if self.__menjar:
-            img = pygame.image.load("../assets/rana/pizza.png")
+            img = pygame.image.load("assets/rana/pizza.png")
             img = pygame.transform.scale(img, (100, 100))
             window.blit(img, (x * 100, y * 100))
 
@@ -138,7 +138,7 @@ class Laberint(joc.Joc):
     }
     PARETS = [(2, 4), (3, 4), (4, 4), (4, 3), (4, 2), (6, 6), (7, 6)]
 
-    def __init__(self, agents: list[Rana], parets=False, mida_taulell: tuple[int, int] = (8, 8)):
+    def __init__(self, agents: list[Rana], parets=True, mida_taulell: tuple[int, int] = (8, 8)):
         super(Laberint, self).__init__((800, 800), agents, title="Pràctica 1")
 
         self.__caselles = []
@@ -237,11 +237,10 @@ class Laberint(joc.Joc):
             ClauPercepcio.MIDA_TAULELL: self.__mida_taulell
         }
 
-
-        #TODO: puede que haya que cambiar el numero de los arrays
         if self.__fer_parets:
             percep_dict[ClauPercepcio.PARETS] = self.PARETS
 
+        print(percep_dict)
         return entorn.Percepcio(
             percep_dict
         )
