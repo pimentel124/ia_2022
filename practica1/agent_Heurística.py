@@ -127,4 +127,20 @@ class Rana(joc.Rana):
         key = list(percepciones.keys())
         state = Estat(percepcio[key[0]], percepcio[key[1]], percepcio[key[2]])
 
-                
+        if self.__acciones is None:
+            tiempo = (time.time() * 1000)         
+            self.cerca(estat=state,string='Miquel')
+            print((time.time()* 1000) - tiempo)
+
+        if self.__acciones:
+                if(self.__torn>0):
+                    self.__torn-=1
+                    return AccionsRana.ESPERAR
+                else:
+                    acc=self.__acciones.pop()
+                    print("accion:"+str(acc))
+                    if(acc[0]==AccionsRana.BOTAR):
+                        self.__torn=2
+                    return acc[0],acc[1]
+        else:
+            return AccionsRana.ESPERAR
