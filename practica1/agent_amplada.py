@@ -10,15 +10,15 @@ G_SIZE = None
 
 
 class Estat:
-    def __init__(self, pos_agent, pos_meta, size, parets, pes=0, pare=None):
+    def __init__(self, pos_meta, pos_agent, size, parets, pes=0, pare=None):
         self.__pare = pare
         self.__pos_meta = pos_meta
         self.__pos_agent = pos_agent
-        self.__pes = pes
         self.__size = size
         global G_SIZE
         G_SIZE = self.__size
         self.__parets = parets
+        self.__pes = pes
 
         print("pos_meta: " + str(self.__pos_meta))
         print("pos_agent: " + str(self.__pos_agent))
@@ -91,14 +91,14 @@ class Estat:
 
         # en el caso de movimientos normales
         claus = list(diccionari_moviments.keys())
+        print("self.__pos_agent[string] = " + str(self.__pos_agent))
         for i, j in enumerate(diccionari_moviments.values()):
-            print("self.__pos_agent[string] = " + str(self.__pos_agent[string]))
             coords = [sum(tup) for tup in zip(self.__pos_agent[string], j)]
             coordenades = {string: coords}
             cost = self.__pes + COST_MOURE
             actual = Estat(
-                coordenades,
                 self.__pos_meta,
+                coordenades,
                 self.__size,
                 self.__parets,
                 cost,
@@ -117,13 +117,13 @@ class Estat:
 
         claus = list(diccionari_bots.keys())
         for i, j in enumerate(diccionari_bots.values()):
-            coordenades = {
-                string: sum(location) for location in zip(self.__pos_agent[string], j)
-            }
-            cost = self.__pes + COST_BOTAR
+            coords = [sum(tup) for tup in zip(self.__pos_agent[string], j)]
+            coordenades = {string: coords}
+            cost = self.__pes + COST_MOURE
             actual = Estat(
-                coordenades,
                 self.__pos_meta,
+                coordenades,
+                self.__size,
                 self.__parets,
                 cost,
                 (self, (AccionsRana.BOTAR, Direccio.__getitem__(claus[i]))),
@@ -156,7 +156,7 @@ class Rana(joc.Rana):
 
             estats_fills = actual.genera_fills(string)
 
-            if actual.es_meta():
+            if actual.es_meta(string):
                 break
             for estat_f in estats_fills:
                 self.__oberts.append(estat_f)
@@ -164,7 +164,7 @@ class Rana(joc.Rana):
             self.__tancats.add(actual)
         if actual is None:
             raise ValueError("Error impossible")
-        if actual.es_meta():
+        if actual.es_meta(string):
             accions = []
             iterador = actual
 
@@ -182,16 +182,17 @@ class Rana(joc.Rana):
         percepcions = percep.to_dict()
         key_list = list(percepcions.keys())
 
-        print(str(percepcions))
-        estat = Estat(percep[key_list[ClauPercepcio.OLOR.value]],
-                     percep[key_list[ClauPercepcio.POSICIO.value]],
+        print("key_list = " + str(key_list))
+
+        estat = Estat(percep[key_list[ClauPercepcio.POSICIO.value]],
+                     percep[key_list[ClauPercepcio.OLOR.value]],                    
                      G_SIZE,
                      percep[key_list[ClauPercepcio.PARETS.value]])
 
         # no lo tengo claro del todo
         if self.__accions is None:
             self._cerca(estat, string="Alvaro")
-        if self.__accions is not None:
+        if self.__accions:
             accio = self.__accions[0]
             self.__accions = self.__accions[1:]
             return accio

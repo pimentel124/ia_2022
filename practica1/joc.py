@@ -240,7 +240,6 @@ class Laberint(joc.Joc):
         if self.__fer_parets:
             percep_dict[ClauPercepcio.PARETS] = self.PARETS
 
-        print(percep_dict)
         return entorn.Percepcio(
             percep_dict
         )
