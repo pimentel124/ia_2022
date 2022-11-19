@@ -75,14 +75,21 @@ class Estat:
                 return False
 
         return (
-            (self.__pos_agent[string][0] <= (self.__size[0]-1))
+            (self.__pos_agent[string][0] <= (self.__size[0] - 1))
             and (self.__pos_agent[string][0] >= 0)
-            and (self.__pos_agent[string][1] <= (self.__size[1]-1))
+            and (self.__pos_agent[string][1] <= (self.__size[1] - 1))
             and (self.__pos_agent[string][1] >= 0)
         )
 
     # Check si los dos están en la meta
     def es_meta(self, string: str):
+        """
+        Devuelve True si el agente está en la misma posición que el meta y False en caso contrario.
+        
+        :param string: cadena = 'A' o 'B'
+        :type string: str
+        :return: un valor booleano.
+        """
         return (self.__pos_agent[string][0] == self.__pos_meta[0]) and (
             self.__pos_agent[string][1] == self.__pos_meta[1]
         )
@@ -154,6 +161,7 @@ class Rana(joc.Rana):
         self.__oberts = None
         self.__tancats = None
         self.__accions = None
+        self.__turno = 0
 
     def _cerca(self, estat: Estat, string: str):
         """
@@ -205,7 +213,7 @@ class Rana(joc.Rana):
     ) -> entorn.Accio | tuple[entorn.Accio, object]:
         """
         El entorno llama a la función actua() para obtener la siguiente acción del agente
-        
+
         :param percep: entorno.Percepcion
         :type percep: entorn.Percepcio
         :return: La acción que realizará el agente.
@@ -226,8 +234,15 @@ class Rana(joc.Rana):
         # no lo tengo claro del todo
         if self.__accions is None:
             self._cerca(estat=estat, string="Alvaro")
+
         if len(self.__accions) > 0:
-            accio = self.__accions[0]
-            self.__accions = self.__accions[1:]
-            return accio
+            if self.__turno > 0:
+                self.__turno -= 1
+                return AccionsRana.ESPERAR
+            else:
+                accio = self.__accions[0]
+                if accio[0] == AccionsRana.BOTAR:
+                    self.__turno = 2
+                self.__accions = self.__accions[1:]
+                return accio
         return AccionsRana.ESPERAR
