@@ -85,7 +85,6 @@ class Estat:
     def es_meta(self, string: str):
         """
         Devuelve True si el agente está en la misma posición que el meta y False en caso contrario.
-        
         :param string: cadena = 'A' o 'B'
         :type string: str
         :return: un valor booleano.
@@ -244,5 +243,6 @@ class Rana(joc.Rana):
                 if accio[0] == AccionsRana.BOTAR:
                     self.__turno = 2
                 self.__accions = self.__accions[1:]
+                print("accio = " + str(accio))
                 return accio
         return AccionsRana.ESPERAR
