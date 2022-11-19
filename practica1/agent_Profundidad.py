@@ -1,8 +1,6 @@
 from ia_2022 import entorn
 from practica1 import joc
 from practica1.entorn import ClauPercepcio, AccionsRana, Direccio
-import time
-from queue import PriorityQueue
 
 COST_MOURE = 1
 COST_ESPERAR = 0.5
