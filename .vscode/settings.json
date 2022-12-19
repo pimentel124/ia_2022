@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "Darcula Theme 2.0",
+    "workbench.colorTheme": "Darcula",
     "python.analysis.typeCheckingMode": "off",
     "python.formatting.provider": "black",
     "python.linting.flake8Args": [
